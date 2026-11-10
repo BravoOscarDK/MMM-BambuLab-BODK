@@ -1,0 +1,20 @@
+.MMM-BambuLab-BODK .bambu-bodk {
+  --bambu-accent: #74c69d;
+  --bambu-warning: #ffba69;
+  --bambu-track: #282828;
+  --bambu-font-size: 19px;
+  --bambu-gap: 7px;
+  font-size: var(--bambu-font-size);
+  line-height: 1.4;
+  max-width: 100%;
+}
+.MMM-BambuLab-BODK .bambu-row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: var(--bambu-gap); }
+.MMM-BambuLab-BODK .bambu-label { text-align: left; flex-shrink: 0; opacity: .75; }
+.MMM-BambuLab-BODK .bambu-value { text-align: right; overflow-wrap: anywhere; min-width: 0; }
+.MMM-BambuLab-BODK .bambu-title { font-size: 1.2em; font-weight: 600; }
+.MMM-BambuLab-BODK .bambu-progress { background: var(--bambu-track); height: 7px; border-radius: 8px; overflow: hidden; margin: 8px 0 14px; }
+.MMM-BambuLab-BODK .bambu-progress > div { background: var(--bambu-accent); height: 100%; transition: width .3s ease; }
+.MMM-BambuLab-BODK .bambu-connected { color: var(--bambu-accent); }
+.MMM-BambuLab-BODK .bambu-warning { color: var(--bambu-warning); }
+.MMM-BambuLab-BODK .bambu-tray i { display: inline-block; width: 12px; height: 12px; border: 1px solid #888; border-radius: 50%; margin-right: 7px; }
+.MMM-BambuLab-BODK .bambu-compact { --bambu-font-size: 16px; --bambu-gap: 3px; }

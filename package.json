@@ -1,0 +1,15 @@
+{
+  "name": "mmm-bambulab-bodk",
+  "version": "1.0.0",
+  "description": "Configurable local Bambu Lab printer status for MagicMirror²",
+  "main": "MMM-BambuLab-BODK.js",
+  "author": "BODK",
+  "license": "MIT",
+  "repository": {"type": "git", "url": "https://github.com/BravoOscarDK/MMM-BambuLab-BODK.git"},
+  "bugs": {"url": "https://github.com/BravoOscarDK/MMM-BambuLab-BODK/issues"},
+  "homepage": "https://github.com/BravoOscarDK/MMM-BambuLab-BODK#readme",
+  "keywords": ["magicmirror", "bambu-lab", "mqtt", "3d-printer"],
+  "scripts": {"test": "node --test", "check": "node --check MMM-BambuLab-BODK.js && node --check node_helper.js && node --check lib/status.js && node --check translations.js"},
+  "engines": {"node": ">=22"},
+  "dependencies": {"mqtt": "^5.16.1"}
+}
