@@ -1,14 +1,22 @@
 # MMM-BambuLab-BODK
 
+## Description
+
 A configurable MagicMirror² module for local Bambu Lab printer status over MQTT/TLS. English is the default language; Danish is available with `language: "da"`.
 
 Display status, job name, progress, remaining time, estimated finish time, layers, temperatures, fans, speed profile and AMS filament slots. Each section can be enabled or disabled separately. Includes a compact layout, CSS customization, optional notifications and multiple printer instances.
 
-Inspired by [MMM-Bambulink](https://github.com/TAGinside/MMM-Bambulink) and [MMM-BambuLabNotify](https://github.com/LuckyDuckTx/MMM-BambuLabNotify). Follows [MagicMirror module conventions](https://docs.magicmirror.builders/development/). Requests a full status report on connection; sends no print or machine control commands.
+Inspired by [MMM-Bambulink](https://github.com/TAGinside/MMM-Bambulink) and [MMM-BambuLabNotify](https://github.com/LuckyDuckTx/MMM-BambuLabNotify). Follows [MagicMirror² module conventions](https://docs.magicmirror.builders/development/). Requests a full status report on connection; sends no print or machine control commands.
+
+## Requirements
+
+Node.js 22 or newer, also supported by your MagicMirror² installation. A compatible Bambu Lab printer with local MQTT/TLS access and network access to TCP port 8883 are required.
+
+Enable local printer access as required by your model and firmware. Find the local IP address, serial number and LAN access code in the printer network settings or Bambu Studio. MagicMirror² must reach TCP port 8883. Availability depends on printer model, firmware and LAN settings; Bambu Cloud login is not supported.
 
 ## Installation
 
-Run on your MagicMirror device:
+Run these commands on the device running MagicMirror²:
 
 ```sh
 cd ~/MagicMirror/modules
@@ -17,11 +25,11 @@ cd MMM-BambuLab-BODK
 npm install
 ```
 
-`npm install` installs all required dependencies automatically. Use Node.js 22 or newer and a version supported by your MagicMirror installation. Keep the folder name unchanged.
+Keep the folder name `MMM-BambuLab-BODK` unchanged. Complete the configuration below, then restart MagicMirror² using your usual startup method.
 
-Enable local printer access as required by your model and firmware. Find the local IP address, serial number and LAN access code in the printer network settings or Bambu Studio. MagicMirror must reach TCP port 8883. Availability depends on printer model, firmware and LAN settings; Bambu Cloud login is not supported.
+## Configuration
 
-Add this entry to the `modules` array in `MagicMirror/config/config.js`, then restart MagicMirror:
+Add this entry to the `modules` array in `~/MagicMirror/config/config.js`, then restart MagicMirror²:
 
 ```js
 {
@@ -43,8 +51,6 @@ Add this entry to the `modules` array in `MagicMirror/config/config.js`, then re
 
 See [config.example.js](config.example.js) for all display switches. Add a separate module entry for each printer; each instance has its own connection.
 
-## Configuration
-
 | Option | Default | Description |
 | --- | --- | --- |
 | `host` | `""` | Printer local IP address or DNS name |
@@ -52,7 +58,7 @@ See [config.example.js](config.example.js) for all display switches. Add a separ
 | `accessCode` | `""` | Printer LAN access code |
 | `port` | `8883` | MQTT/TLS port |
 | `printerName` | `"Bambu Lab"` | Display name |
-| `language` | `"en"` | English (`en`) or Danish (`da`); empty follows MagicMirror language |
+| `language` | `"en"` | English (`en`) or Danish (`da`); an empty value follows the MagicMirror² global language |
 | `layout` | `"default"` | `default` or `compact` |
 | `width` | `"320px"` | CSS width |
 | `animationSpeed` | `300` | DOM transition duration in milliseconds |
@@ -84,9 +90,9 @@ All display options accept `true` or `false` independently:
 
 Unreported values display as `—`. AMS appears only when AMS data is reported. External spools and camera images are not implemented. Fan percentages use the protocol's 0–15 scale. New firmware formats may need adjustments. Estimated finish time uses the report timestamp and remaining time; it is hidden for stale data or paused prints. The first state after startup or reconnection triggers no notification.
 
-## Styling
+### Styling
 
-Add overrides to `MagicMirror/css/custom.css`:
+Add overrides to `MagicMirror²/css/custom.css`:
 
 ```css
 .MMM-BambuLab-BODK .bambu-bodk {
@@ -98,9 +104,23 @@ Add overrides to `MagicMirror/css/custom.css`:
 }
 ```
 
-You can also style `.bambu-title`, `.bambu-row`, `.bambu-label`, `.bambu-value`, `.bambu-progress` and `.bambu-tray`. Standard MagicMirror `header`, `position` and `classes` options are supported.
+You can also style `.bambu-title`, `.bambu-row`, `.bambu-label`, `.bambu-value`, `.bambu-progress` and `.bambu-tray`. Standard MagicMirror² `header`, `position` and `classes` options are supported.
+
+## Language
+
+English is the default, independently of the MagicMirror² global language. Set the language in this module's `config`:
+
+```js
+language: "en" // English (default); use "da" for Danish.
+```
+
+Unsupported languages fall back to English. Custom labels, device names and upstream data retain their configured or reported values. Technical logs and diagnostic errors are in English.
+
+For this module, an explicitly empty `language` value follows the MagicMirror² global language. Use `"en"` to keep English selected explicitly. Use the exact codes `en` or `da`.
 
 ## Updating
+
+For an installation created with `git clone`:
 
 ```sh
 cd ~/MagicMirror/modules/MMM-BambuLab-BODK
@@ -108,19 +128,23 @@ git pull --ff-only
 npm install
 ```
 
-Restart MagicMirror. Settings remain in MagicMirror's `config/config.js`.
+Restart MagicMirror² using your usual startup method. Keep your module settings in `~/MagicMirror/config/config.js`. If Git reports local changes or diverging branches, preserve those changes and resolve the issue before updating. A ZIP download or copied folder must be replaced manually or migrated to a Git clone before using `git pull`.
 
-## Troubleshooting and validation
+## Troubleshooting
 
 For connection errors, check IP address, port, serial number, LAN access code, local access settings and firewall. The module reconnects every five seconds. "Waiting for printer data" means MQTT is connected but no report has arrived. Error codes are displayed as reported; consult Bambu Lab for their meaning.
 
-The LAN access code is stored in your MagicMirror configuration. Do not publish that configuration. The module does not return the access code in status messages or log raw printer data.
+The LAN access code is stored in your MagicMirror² configuration. Do not publish that configuration. The module does not return the access code in status messages or log raw printer data.
+
+## Validation
 
 ```sh
 npm run check
 npm test
 ```
 
-Automated tests use simulated reports and MQTT connections. Physical printer connectivity and operation in a running MagicMirror installation still need hardware testing.
+Automated tests use simulated reports and MQTT connections. Physical printer connectivity and operation in a running MagicMirror² installation still need hardware testing.
 
-MIT license. Copyright 2026 BODK.
+## License
+
+MIT. See [LICENSE](LICENSE) for license terms and attribution.
