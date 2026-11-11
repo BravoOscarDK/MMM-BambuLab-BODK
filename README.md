@@ -8,6 +8,14 @@ Display status, job name, progress, remaining time, estimated finish time, layer
 
 Inspired by [MMM-Bambulink](https://github.com/TAGinside/MMM-Bambulink) and [MMM-BambuLabNotify](https://github.com/LuckyDuckTx/MMM-BambuLabNotify). Follows [MagicMirror² module conventions](https://docs.magicmirror.builders/development/). Requests a full status report on connection; sends no print or machine control commands.
 
+### Preview
+
+Default display with a fictional print job and AMS filament slots. English is the default language.
+
+![BambuLab example with fictional data](docs/images/example.png)
+
+The [browser preview](docs/preview.html) uses fictional data only; it does not validate external services or hardware.
+
 ## Requirements
 
 Node.js 22 or newer, also supported by your MagicMirror² installation. A compatible Bambu Lab printer with local MQTT/TLS access and network access to TCP port 8883 are required.
